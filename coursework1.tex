@@ -94,14 +94,59 @@
 
 \maketitle
 
-Question 1:
-	a)
+
+Question 1:\\
+\rule{\linewidth}{0.4pt}
+\indent a)
 \begin{gather*}
 	\drule{e.add}{
-		$\emptyset$
+		(\dag) \\
+		(\ddag) \\
+		0 = 0 \semop+ 0
 	}{
-		\ang{(newpair.fst) + (newpair.snd), \emptyset, \emptyset} \bse \ang{(0, \emptyset, (1 \mapsto 0, 2 \mapsto 0, 5 \mapsto 0, 6 \mapsto 0)}
+		\ang{(\fst{\newp}) + (\snd{\newp}), \emptyset, \emptyset} 
+		\bse 
+		\ang{(0, \emptyset, (1 \mapsto 0, 2 \mapsto 0, 5 \mapsto 0, 6 \mapsto 0)}
 	}
+	\\ \\
+	(\dag) \equiv \drule{e.fst}{
+			\drule{e.new}{
+				1 \notin \dom h  (1 + 1) \notin \dom h
+			}{
+				\ang{newp, \emptyset, \emptyset}
+				\bse
+				\ang{\ad 1, \emptyset, (1 \mapsto 0, 2 \mapsto 0)}			
+			}
+		}{
+			\ang{\fst{\newp}, \emptyset, \emptyset} 
+			\bse 
+			\ang{0, \emptyset, (1 \mapsto 0, 2 \mapsto 0)}
+		}
+	\\ \\ 
+	(\ddag) \equiv \drule{e.snd}{
+			\drule{e.new}{
+				5 \notin \dom h  (5 + 1) \notin \dom h
+			}{
+				\ang{\newp, \emptyset, (1 \mapsto 0, 2 \mapsto 0)}
+				\bse
+				\ang{\ad 5, \emptyset, (1 \mapsto 0, 2 \mapsto 0, 5 \mapsto 0, 6 \mapsto 0)}
+			}
+		}{
+			\ang{\snd{\newp}, \emptyset, (1 \mapsto 0, 2 \mapsto 0)} 
+			\bse
+			\ang{0, \emptyset, (1 \mapsto 0, 2 \mapsto 0, 5 \mapsto 0, 6 \mapsto 0)}
+		}
 \end{gather*}
+\indent b)
+The semantics is not deterministic, as there is more than one choice for the value of \emph{a} in \texttt{E.NEW}. This means one program could choose a value of 1 for \emph{a}, whereas another could choose 2. \\
+\\
+\indent c)
+The semantics is not total, as not all expressions will evaluate to an answer. For example, the expression \snd{1} is a valid expression, however it requires $\ang{1, s, h} \bse \ang{\ad a, s', h'}$ for some /emph{a}, which is not possible as according to rule \texttt{E.NUM}, $\ang{1, s, h} \bse \ang{1, s, h}$ \\
+\\
+\indent d)
+As mentioned above, it is not the case that, for any value \emph{v} or state \emph{s}, $\ang{\snd{1}, s, h} \bse \ang{v, s', h'}$.\\
+\rule{\linewidth}{0.4pt}
+
+Question 2:
 
 \end{document}
