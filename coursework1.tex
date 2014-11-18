@@ -93,10 +93,9 @@
 \author{Ben Brannick}
 
 \maketitle
-
-
+\noindent 
+\rule{\linewidth}{0.4pt} \\ \\
 Question 1:\\
-\rule{\linewidth}{0.4pt}
 \indent a)
 \begin{gather*}
 	\drule{e.add}{
@@ -137,16 +136,54 @@ Question 1:\\
 			\ang{0, \emptyset, (1 \mapsto 0, 2 \mapsto 0, 5 \mapsto 0, 6 \mapsto 0)}
 		}
 \end{gather*}
+\indent b) \\
+\indent The semantics is not deterministic, as there is more than one choice for the value of \emph{a} in \texttt{E.NEW}. This means one program could choose a value of 1 for \emph{a}, whereas another could choose 2. \\
+\\
+\indent c) \\
+\indent The semantics is not total, as not all expressions will evaluate to an answer. For example, the expression \snd{1} is a valid expression, however it requires $\ang{1, s, h} \bse \ang{\ad a, s', h'}$ for some \emph{a}, which is not possible as according to rule \texttt{E.NUM}, $\ang{1, s, h} \bse \ang{1, s, h}$ \\
+\\
+\indent d) \\
+\indent As mentioned above, it is not the case that, for any value \emph{v} or state \emph{s}, $\ang{\snd{1}, s, h} \bse \ang{v, s', h'}$.\\
+\clearpage \noindent
+\rule{\linewidth}{0.4pt} \\ \\
+Question 2: \\
+\indent a)
+\begin{gather*}
+\drule{b.true}{
+	\ 
+}{
+	\ang{\texttt{true}, s, h} \bsb \ang{\texttt{true}, s, h}
+} \indent \indent
+\drule{b.false}{
+	\ 
+}{
+	\ang{\texttt{false}, s, h} \bsb \ang{\texttt{false}, s, h}
+} \\
+\drule{b.and.true}{
+	\ang{B_1, s, h} \bsb \ang{\texttt{true}, s', h'} \\
+	\ang{B_2, s', h'} \bsb \ang{\texttt{true}, s'', h''}
+}{
+	\ang{B_1 \ \& \ B_2, s, h} \bsb \ang{\texttt{true}, s'', h''}
+} \\
+\drule{b.and.false}{
+	\ang{B_1, s, h} \bsb \ang{v_1, s', h'} \\
+	\ang{B_2, s', h'} \bsb \ang{v_2, s'', h''} \\
+	v_1 \neq \texttt{true} \lor v_2 \neq \texttt{true}
+}{
+	\ang{B_1 \ \& \ B_2, s, h} \bsb \ang{\texttt{false}, s'', h''}
+} \\
+\drule{b.not.true}{
+	\ang{B, s, h} \bsb \ang{\texttt{false}, s', h'}
+}{
+	\ang{\lnot B, s, h} \bsb \ang{\texttt{true}, s', h'}
+} \\
+\drule{b.not.false}{
+	\ang{B, s, h} \bsb \ang{\texttt{true}, s', h'}
+}{
+	\ang{\lnot B, s, h} \bsb \ang{\texttt{false}, s', h'}
+}
+\end{gather*}
+\\ \\
 \indent b)
-The semantics is not deterministic, as there is more than one choice for the value of \emph{a} in \texttt{E.NEW}. This means one program could choose a value of 1 for \emph{a}, whereas another could choose 2. \\
-\\
-\indent c)
-The semantics is not total, as not all expressions will evaluate to an answer. For example, the expression \snd{1} is a valid expression, however it requires $\ang{1, s, h} \bse \ang{\ad a, s', h'}$ for some /emph{a}, which is not possible as according to rule \texttt{E.NUM}, $\ang{1, s, h} \bse \ang{1, s, h}$ \\
-\\
-\indent d)
-As mentioned above, it is not the case that, for any value \emph{v} or state \emph{s}, $\ang{\snd{1}, s, h} \bse \ang{v, s', h'}$.\\
-\rule{\linewidth}{0.4pt}
-
-Question 2:
-
+\indent The expression \newp \ could 
 \end{document}
