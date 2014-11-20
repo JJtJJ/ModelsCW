@@ -110,7 +110,7 @@ Question 1:\\
 	\\ \\
 	(\dag) \equiv \drule{e.fst}{
 			\drule{e.new}{
-				1 \notin \dom h  (1 + 1) \notin \dom h
+				1 \notin \dom h \\ (1 + 1) \notin \dom h
 			}{
 				\ang{newp, \emptyset, \emptyset}
 				\bse
@@ -124,7 +124,7 @@ Question 1:\\
 	\\ \\ 
 	(\ddag) \equiv \drule{e.snd}{
 			\drule{e.new}{
-				5 \notin \dom h  (5 + 1) \notin \dom h
+				5 \notin \dom h \\ (5 + 1) \notin \dom h
 			}{
 				\ang{\newp, \emptyset, (1 \mapsto 0, 2 \mapsto 0)}
 				\bse
@@ -185,6 +185,93 @@ Question 2: \\
 \end{gather*}
 \\ \\
 \indent b) \\
-\indent The expression (\newp) could cause \ang{E = E, s, h} \ang{\texttt{false}, s', h'}, as the memory address chosen for \newp is not constrained to a single choice. This can be proven using the derivation:
-
+\indent The expression (\newp) could cause \[\ang{E = E, s, h} \bse \ang{\texttt{false}, s', h'},\] as the memory address chosen for \newp is not constrained to a single choice. This can be proven using the derivation:
+\begin{gather*}
+\drule{b.eq.false}{
+	(\dag) \\ 
+	(\ddag) \\
+	\ad{1} \neq \ad{3}
+}{
+	\ang{(\newp = \newp), s, h} \bsb \ang{\texttt{false}, s'', h''}
+} \\
+(\dag) \equiv \drule{e.new}{
+		1 \notin \dom{h} \\ (1 + 1) \notin \dom{h}
+	}{
+		\ang{\newp, s, h} \bse \ang{\ad{1}, s, h[1 \mapsto 0, 2 \mapsto 0]}
+	} \\
+(\ddag) \equiv \drule{e.new}{
+		3 \notin \dom{h} \\ (3 + 1) \notin \dom{h}
+	}{
+		\ang{\newp, s, h} \bse \ang{\ad{3}, s, h[3 \mapsto 0, 4 \mapsto 0]}
+	}
+\end{gather*}
+\rule{\linewidth}{0.4pt} \\ \\
+Question 3 \\
+\indent a) \\
+\begin{gather*}
+\drule{c.seq}{
+	(\dag) \\
+	(\ddag)
+}{
+	\ang{x := \fst{c}; \texttt{fst}[c] \gets y; c := \snd{c}, s, h}
+	\bsc
+	\ang{s'', h'}
+} \\ \\
+(\dag) \equiv \drule{c.assign}{
+		\drule{e.fst}{
+			\drule{e.var}{
+				c \in \dom{s}
+			}{
+				\ang{c, s, h} \bse \ang{\ad{5}, s, h}
+			}
+		}{
+			\ang{\fst{c}, s, h} \bse \ang{3, s, h}
+		}
+	}{
+		\ang{x := \fst{c}, s, h} \bsc \ang{s[x \mapsto 3], h}
+	} \\ \\
+(\ddag) \equiv \drule{c.seq}{
+		(\ddag') \\
+		(\ddag'')
+	}{
+		\ang{\texttt{fst}[c] \gets y; c := \snd{c}, s', h}
+		\bsc
+		\ang{s'', h'}
+	} \\ \\
+(\ddag') \equiv \drule{c.stor.fst}{
+			\drule{e.var}{
+				c \in \dom{s}
+			}{
+				\ang{c, s', h} \bse \ang{\ad{5}, s', h}
+			} \\
+			\drule{e.var}{
+				y \in \dom{s}
+			}{
+				\ang{y, s', h} \bse \ang{12, s', h}
+			} \\
+			5 \in \dom{h}
+		}{
+			\ang{\texttt{fst}[c] \gets y, s', h}
+			\bsc
+			\ang{s', h[5 \mapsto 12]}
+		} \\ \\
+(\ddag'') \equiv \drule{c.assign}{
+			\drule{e.snd}{
+				\drule{e.var}{
+					c \in \dom{s}
+				}{
+					\ang{c, s', h'} \bse \ang{\ad{5}, s', h'}
+				}
+			}{
+				\ang{\snd{c}, s', h} \bse \ang{\ad{3}, s', h'}
+			}
+		}{
+			\ang{c := \snd{c}, s', h'}
+			\bsc
+			\ang{s'[c \mapsto \ad{3}], h'}
+		}
+\end{gather*}
+Where \[s'  \equiv s[x \mapsto 3],\]
+	  \[s'' \equiv s'[c \mapsto \ad{3}],\]
+	  \[h'  \equiv h[5 \mapsto 12] \]
 \end{document}
