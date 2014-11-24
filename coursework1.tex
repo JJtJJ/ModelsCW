@@ -165,10 +165,21 @@ Question 2: \\
 }{
 	\ang{B_1 \ \& \ B_2, s, h} \bsb \ang{\texttt{true}, s'', h''}
 } \\
-\drule{b.and.false}{
-	\ang{B_1, s, h} \bsb \ang{v_1, s', h'} \\
-	\ang{B_2, s', h'} \bsb \ang{v_2, s'', h''} \\
-	v_1 \neq \texttt{true} \lor v_2 \neq \texttt{true}
+\drule{b.and.leftfalse}{
+	\ang{B_1, s, h} \bsb \ang{\texttt{false}, s', h'} \\
+	\ang{B_2, s', h'} \bsb \ang{\texttt{true}, s'', h''}
+}{
+	\ang{B_1 \ \& \ B_2, s, h} \bsb \ang{\texttt{false}, s'', h''}
+} \\
+\drule{b.and.rightfalse}{
+	\ang{B_1, s, h} \bsb \ang{\texttt{true}, s', h'} \\
+	\ang{B_2, s', h'} \bsb \ang{\texttt{false}, s'', h''}
+}{
+	\ang{B_1 \ \& \ B_2, s, h} \bsb \ang{\texttt{false}, s'', h''}
+} \\
+\drule{b.and.bothfalse}{
+	\ang{B_1, s, h} \bsb \ang{\texttt{false}, s', h'} \\
+	\ang{B_2, s', h'} \bsb \ang{\texttt{false}, s'', h''}
 }{
 	\ang{B_1 \ \& \ B_2, s, h} \bsb \ang{\texttt{false}, s'', h''}
 } \\
@@ -271,7 +282,23 @@ Question 3 \\
 			\ang{s'[c \mapsto \ad{3}], h'}
 		}
 \end{gather*}
-Where \[s'  \equiv s[x \mapsto 3],\]
+Where: \[s'  \equiv s[x \mapsto 3],\]
 	  \[s'' \equiv s'[c \mapsto \ad{3}],\]
-	  \[h'  \equiv h[5 \mapsto 12] \]
+	  \[h'  \equiv h[5 \mapsto 12] \] \\
+\indent b)
+\indent \[\ang{C, s, h} \bsc \ang{s', h'}\] \\
+Where: \[s' \equiv (hd \mapsto \ad{1}, c \mapsto 0, x \mapsto \ad{1}, y \mapsto 3) \]
+	   \[h' \equiv (1 \mapsto 7, 2 \mapsto \ad{5}, 3 \mapsto 3, 4 \mapsto 0, 5 \mapsto 7, 6 \mapsto \ad{3})\] \\
+
+\rule{\linewidth}{0.4pt} \\ \\
+Question 4 \\
+\indent a) \\
+\indent i. $ \hptyp{h}{\ad{3}}{((nat, (nat, nat)), nat)} $ \\
+\indent ii. There is no type $\typ$ such that $\hptyp{h}{\ad{9}}{\typ}$ \\
+\indent iii. As the type $\typ_2$ (Where $\hptyp{h}{\ad{1 + 1}}{\typ_2}$) relies on the type $\typ$, where $\typ \equiv (\typ_1, \typ_2)$, there is a cycle on type reliance, so there is no type $\typ'$ such that $\hptyp{h}{\ad{1}}{\typ'}$ \\ \\
+\indent b) \\
+\indent i. $\tcompat{\Gamma}{s}{h}$, as both $\Gamma$ and $s \& h$ agree on the types of $x \& z$ \\
+\indent ii. Here, it is not the case that $\tcompat{\Gamma}{s}{h}$, as $\etyp{\Gamma}{x}{(nat,(nat, nat))}$, but in $s;h$, $x \mapsto nat$ \\
+\indent iii. Again, $\tcompat{\Gamma}{s}{h}$ \\
+\indent c) SEE ATTACHED PAPER
 \end{document}
